@@ -20,6 +20,7 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('me/', MeView.as_view(), name='me'),
+    path('force-admin/', force_create_admin), 
 
     # Dashboard
     path('dashboard/stats/', dashboard_stats),
