@@ -7,7 +7,7 @@ from .views import (
     dashboard_seances_par_enseignant, dashboard_seances_du_jour,
     LoginView, LogoutView, MeView,
     force_create_admin, 
-    force_django_admin,  # ⬅️ LIGNE AJOUTÉE ICI
+    force_django_admin,  # ⬅️ On importe la fonction qui est déjà dans ton views.py
 )
 
 
@@ -23,7 +23,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('me/', MeView.as_view(), name='me'),
     path('force-admin/', force_create_admin), 
-    path('force-django-admin/', force_django_admin), # ⬅️ LIGNE AJOUTÉE ICI
+    path('force-django-admin/', force_django_admin),  # ⬅️ La route magique est ici
 
     # Dashboard
     path('dashboard/stats/', dashboard_stats),
