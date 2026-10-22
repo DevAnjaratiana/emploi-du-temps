@@ -13,8 +13,8 @@ SECRET_KEY = os.environ.get(
     'SECRET_KEY',
     'django-insecure-(w%k1n($*w6+&5ujk#dmfi%jcghdvbld!=*%vc1&pc)c4c9t6y'
 )
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
+DEBUG = os.environ.get('DEBUG', 'False') == 'True' 
 ALLOWED_HOSTS = ['*']
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',              
+    'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
     'api',
 ]
@@ -103,6 +105,7 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 # ============ DRF ============
+
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
@@ -110,6 +113,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
     ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
 }
 
 # ============ CACHE ============
@@ -122,3 +128,12 @@ CACHES = {
 
 # ============ DIVERS ============
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# ============ JWT ============
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
