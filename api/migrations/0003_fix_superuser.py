@@ -2,20 +2,18 @@ from django.db import migrations
 
 
 def fix_superuser(apps, schema_editor):
-    User = apps.get_model('auth', 'User')
-    username = 'Anjara'
-    password = 'Admin@2026!'   # ⬅️ mot de passe SOLIDE (Django l'accepte)
-    email = 'andriafinaritra214@gmail.com'
+    # ⬇️ On utilise le VRAI modèle User, pas le modèle historique
+    from django.contrib.auth.models import User
 
     user, created = User.objects.get_or_create(
-        username=username,
+        username='Anjara',
         defaults={
-            'email': email,
+            'email': 'andriafinaritra214@gmail.com',
             'is_staff': True,
             'is_superuser': True,
         }
     )
-    user.set_password(password)   # ⬅️ set_password hash le mot de passe correctement
+    user.set_password('Admin@2026!')
     user.is_staff = True
     user.is_superuser = True
     user.save()
