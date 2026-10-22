@@ -1,11 +1,13 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+
 from .views import (
     EnseignantViewSet, SalleViewSet, CoursViewSet, SeanceViewSet,
     dashboard_stats, dashboard_seances_par_jour, dashboard_occupation_salles,
     dashboard_seances_par_enseignant, dashboard_seances_du_jour,
     LoginView, LogoutView, MeView,
     force_create_admin, 
+    force_django_admin,  # ⬅️ LIGNE AJOUTÉE ICI
 )
 
 
@@ -21,6 +23,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('me/', MeView.as_view(), name='me'),
     path('force-admin/', force_create_admin), 
+    path('force-django-admin/', force_django_admin), # ⬅️ LIGNE AJOUTÉE ICI
 
     # Dashboard
     path('dashboard/stats/', dashboard_stats),

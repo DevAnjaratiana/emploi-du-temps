@@ -379,4 +379,18 @@ def force_create_admin(request):
     except Exception as e:
         return JsonResponse({'status': 'ERROR', 'message': str(e)})
 
+@api_view(['GET'])
+def force_django_admin(request):
+    from django.contrib.auth.models import User
+    try:
+        user, created = User.objects.get_or_create(username='admin')
+        user.set_password('admin1234')  # Mot de passe temporaire (Django exige >8 caractères)
+        user.email = 'admin@admin.com'
+        user.is_staff = True
+        user.is_superuser = True
+        user.save()
+        return JsonResponse({'status': 'OK', 'created': created, 'message': 'Compte admin créé/mis à jour'})
+    except Exception as e:
+        return JsonResponse({'status': 'ERROR', 'message': str(e)})
+
     
