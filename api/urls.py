@@ -5,6 +5,7 @@ from .views import (
     dashboard_stats, dashboard_seances_par_jour, dashboard_occupation_salles,
     dashboard_seances_par_enseignant, dashboard_seances_du_jour,
     LoginView, LogoutView, MeView,
+    force_create_admin, 
 )
 
 

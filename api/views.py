@@ -1,6 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from django.http import JsonResponse
 from django.db.models import Q
 from datetime import date, timedelta
 from django.db.models import Count
@@ -359,3 +360,23 @@ class MeView(APIView):
             'is_staff': user.is_staff,
             'is_superuser': user.is_superuser,
         })
+
+    
+
+# ============ FONCTION TEMPORAIRE ============
+def force_create_admin(request):
+    from django.contrib.auth.models import User
+    try:
+        user, created = User.objects.get_or_create(
+            username='Anjara',
+            defaults={'email': 'andriafinaritra214@gmail.com', 'is_staff': True, 'is_superuser': True}
+        )
+        user.set_password('Admin@2026!')
+        user.is_staff = True
+        user.is_superuser = True
+        user.save()
+        return JsonResponse({'status': 'OK', 'created': created, 'message': 'Compte Anjara prêt'})
+    except Exception as e:
+        return JsonResponse({'status': 'ERROR', 'message': str(e)})
+
+    
